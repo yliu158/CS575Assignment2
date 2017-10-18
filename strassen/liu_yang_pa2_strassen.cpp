@@ -5,6 +5,7 @@
 
 using namespace std;
 
+void execute();
 int getInput();
 vector<vector<int> > generateMatrix(int n);
 vector<vector<int> > generateMatrix_one(int n);
@@ -17,15 +18,22 @@ vector<vector<int> > divideMatrix(const vector<vector<int> >& a, int r_ind, int 
 vector<vector<int> > strassenMulti(const vector<vector<int> >& a, const vector<vector<int> >& b);
 
 int main(int argc, char const *argv[]) {
+  execute();
+  return 0;
+}
+
+void execute() {
+  srand(time(NULL));
   int n = getInput();
   vector<vector<int> > v1 = generateMatrix(n);
+  printMatrix(v1);
   vector<vector<int> > v2 = generateMatrix(n);
+  printMatrix(v2);
   vector<vector<int> > v3 = strassenMulti(v1,v2);
   printMatrix(v3);
   vector<vector<int> > v4 = multiMatrix(v1,v2);
   printMatrix(v4);
   checkMatrixSame(v4, v3);
-  return 0;
 }
 
 int getInput() {
