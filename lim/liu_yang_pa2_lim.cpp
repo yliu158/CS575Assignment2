@@ -162,12 +162,52 @@ void seperateLargeInts(const struct LargeInt& a, vector<struct LargeInt>& r, int
   int count = 0;
   int a_index = a.ints.size()-1;
   vector<int>::iterator it;
-
+  int prod = 0;
+  int rem = 0;
   for (int i = 0; i < a_length/power; i++) {
-    struct LargeInt num;
     if (a_index < 0) break;
+    struct LargeInt num;
     while (count < power) {
-      if (num.ints.front() < 100000) {
+      if (num.ints.size() == 0 ) {
+        if (prod != 0) {
+          
+        }
+        while (count < power -6) {
+          it = num.ints.begin();
+          num.ints.insert(it, a.ints.at(a_index--));
+          count += 6;
+        }
+        if (count == power) break;
+        if (a_index >= 0) {
+          prod = num.ints.at(a_index--);
+          int denom = pow(10, power -count);
+          rem = prod%denom;
+          prod = prod/denom;
+        } else {
+          cout = power;
+        }
+
+      } else if (num.ints.front() == 0) {
+
+        if (count < power - 6) {
+          num.ints.front() = a.ints.at(a_index--);
+        }
+        while (count < power -6) {
+          it = num.ints.begin();
+          num.ints.insert(it, a.ints.at(a_index--));
+          count += 6;
+        }
+
+      } else if (num.ints.front() < 100000) {
+
+        int need = 0;
+        for (int i = 4; i >= 0; i--) {
+          int denom = pow(10, i);
+          if ((num.ints.front()/denom ) != 0){
+            need = 6 - i -1;
+            break;
+          }
+        }
 
       } else {
         // insert new int
@@ -176,7 +216,7 @@ void seperateLargeInts(const struct LargeInt& a, vector<struct LargeInt>& r, int
           num.ints.insert(it, a.ints.at(a_index--));
           count += 6;
         }
-        cout
+
       }
     }
   }
