@@ -1,14 +1,28 @@
 #include <iostream>
 #include <iomanip>
+#include <math.h>
+#include <time.h>
+#include <vector>
 
 using namespace std;
+struct LargeInt{
+  vector<int> ints;
+};
 
+void execute();
 int getInput();
-int generateRandomNum(int n);
+void generateRandomNums(const int& k, struct LargeInt& a, struct LargeInt& b);
 
 int main(int argc, char const *argv[]) {
-  getInput();
+  execute();
   return 0;
+}
+
+void execute(){
+  int n = getInput();
+  struct LargeInt a;
+  struct LargeInt b;
+  generateRandomNums(n, a, b);
 }
 
 int getInput() {
@@ -32,15 +46,24 @@ int getInput() {
       cin >> k;
     }
   }
-  return 6*k;
+  return k;
 }
 
-int generateRandomNum(int n){
-  if (n%6 != 0){
-    cout << "n can not be divided by 6.\n";
-    return -1;
+void generateRandomNums(const int& k, struct LargeInt& a, struct LargeInt& b){
+  srand(time(NULL));
+  int threshold = pow(INT_MAX, 0.5);
+
+  int x;
+  for (int i = 0; i < k-1; i++) {
+    x = 0;
+    for (int j = 0; j < 6; j++) {
+      x += pow(10, i) * (rand()%10);
+    }
   }
 
-  
-
+  x = 0;
+  for (int i = 0; i < n -1; i++) {
+    x += pow(10, k*6-1) * (rand()%9 + 1);
+  }
+  return;
 }
