@@ -184,7 +184,7 @@ void seperateLargeInts(const struct LargeInt& a, vector<struct LargeInt>& r, int
           rem = prod%denom;
           prod = prod/denom;
         } else {
-          cout = power;
+          count = power;
         }
 
       } else if (num.ints.front() == 0) {
