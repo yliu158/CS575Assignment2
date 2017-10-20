@@ -7,8 +7,9 @@
 using namespace std;
 
 #define MAX_SIZE 1000
-#define MAX_HEAP_NUM 200
+#define MAX_HEAP_NUM INT_MAX
 #define MAX_RADIX_NUM 1000
+#define MAX_SHOW 20
 static int arr[MAX_SIZE];
 static int length;
 
@@ -89,6 +90,12 @@ void getInput(){
 // FOR heapSort
 // store the array as static
 void generateHeapArray() {
+  if (length <= 20) {
+    for (int i = 0; i < length; i++) {
+      arr[i] = rand()%MAX_SHOW;
+    }
+    return;
+  }
   for (int i = 0; i < length; i++) {
     arr[i] = rand()%MAX_HEAP_NUM;
   }
@@ -100,6 +107,12 @@ void generateHeapArray() {
 // store the array as static
 // 0-999
 void generateRadixArray() {
+  if (length <= 20) {
+    for (int i = 0; i < length; i++) {
+      arr[i] = rand()%MAX_SHOW;
+    }
+    return;
+  }
   for (int i = 0; i < length; i ++) {
     arr[i] = rand()%MAX_RADIX_NUM;
   }
@@ -107,6 +120,9 @@ void generateRadixArray() {
 }
 
 void heapSort() {
+  if (length <= 20) {
+    printArray();
+  }
   buildMaxHeap();
   for (int i = length -1; i >= 0; i--) {
     int current_max = arr[0];
@@ -124,6 +140,9 @@ void buildMaxHeap() {
 }
 
 void maxHeaify(int parent_index, int bound) {
+  if (length <= 20) {
+    printArray();
+  }
   int left_index = parent_index*2 + 1;
   int right_index = left_index + 1;
   int largest = parent_index;
@@ -144,6 +163,9 @@ void maxHeaify(int parent_index, int bound) {
 void radixSort() {
   for (int i = 0; i < 3; i ++) {
     countingSort(i);
+    if (length <= 20) {
+      printArray();
+    }
   }
   return;
 }

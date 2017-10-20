@@ -25,36 +25,70 @@ int main(int argc, char const *argv[]) {
 }
 
 void execute() {
-  srand(time(NULL));
-  int n = getInput();
-  vector<vector<int> > v1 = generateMatrix(n);
-  printMatrix(v1);
-  vector<vector<int> > v2 = generateMatrix(n);
-  printMatrix(v2);
-  vector<vector<int> > v3 = strassenMulti(v1,v2);
-  printMatrix(v3);
-  vector<vector<int> > v4 = multiMatrix(v1,v2);
-  printMatrix(v4);
-  checkMatrixSame(v4, v3);
+  string input = "";
+  bool sign = true;
+  srand((unsigned)time(NULL));
+  while (sign) {
+
+    int n = getInput();
+    vector<vector<int> > v1 = generateMatrix(n);
+    if (n<pow(2, 3)) printMatrix(v1);
+    vector<vector<int> > v2 = generateMatrix(n);
+    if (n<pow(2, 3)) printMatrix(v2);
+    vector<vector<int> > v3 = strassenMulti(v1,v2);
+    cout << "Strassen done.\n";
+    if (n < pow(2, 3)) {
+      printMatrix(v3);
+    }
+    vector<vector<int> > v4;
+    if (n < pow(2, 6)) {
+      cout << "n = " << n << ", compare regular multiplication and strassenMulti.\n";
+      v4 = multiMatrix(v1,v2);
+      checkMatrixSame(v4, v3);
+    }
+    if (n<pow(2, 3)) printMatrix(v4);
+
+
+    cout << "Press e to Exit." << endl;
+    cout << "Press any other button to continue." << endl;
+    cin >> input;
+    if (input[0] == 'e' || input[0] == 'E') {
+      sign = false;
+    }
+
+    while (cin.fail()) {
+      cin.clear();
+      cin.ignore();
+      cin >> input;
+      if (input[0] == 'e' || input[0] == 'E') {
+         sign = false;
+      }
+    }
+  }
+  cout << "Successfully Exited" << endl;
 }
 
 int getInput() {
-  cout << "Please input the size of the matrix: ";
+  cout << "Matrix the size will be 2^k\n";
+  cout << "Please input the size of the matrix k: ";
   int n = 0;
   cin >> n;
   while (cin.fail()) {
     cin.clear();
     cin.ignore();
-    cout << "Please input the size of the matrix: ";
+    cout << "Matrix the size will be 2^k\n";
+    cout << "Please input the k: ";
     cin >> n;
   }
   while (n <= 0 || n > 10) {
-    cout << "Please input the size of the matrix between 1 and 10: ";
+    cout << "Matrix the size will be 2^k\n";
+    cout << "Please input the k which is between 1 and 10: ";
     cin >> n;
     while (cin.fail()) {
       cin.clear();
       cin.ignore();
-      cout << "Please input the size of the matrix: ";
+      cout << "Matrix the size will be 2^k\n";
+      cout << "Please input the k: ";
       cin >> n;
     }
   }
